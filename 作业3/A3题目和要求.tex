@@ -1,0 +1,162 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb,amsthm}  % assumes amsmath package installed
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup[figure]{name={图}}
+\captionsetup[table]{name={表}}
+% \usepackage[pdftex]{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{verbatim}
+\usepackage[numbered]{mcode}
+\usepackage{float}
+\usepackage{tikz}
+    \usetikzlibrary{shapes,arrows}
+    \usetikzlibrary{arrows,calc,positioning}
+
+    \tikzset{
+        block/.style = {draw, rectangle,
+            minimum height=1cm,
+            minimum width=1.5cm},
+        input/.style = {coordinate,node distance=1cm},
+        output/.style = {coordinate,node distance=4cm},
+        arrow/.style={draw, -latex,node distance=2cm},
+        pinstyle/.style = {pin edge={latex-, black,node distance=2cm}},
+        sum/.style = {draw, circle, node distance=1cm},
+    }
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+    
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\newenvironment{problem}[2][Q]
+    { \begin{mdframed}[backgroundcolor=gray!20] \textbf{#1 #2} \\}
+    {  \end{mdframed}}
+
+% Define solution environment
+\newenvironment{solution}
+    {\textit{Solution:}}
+    {}
+
+\renewcommand{\qed}{\quad\qedsymbol}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+%Header-Make sure you update this information!!!!
+\noindent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\large\textbf{课程: 人工智能} \hfill \textbf{作业 3}   \\
+北航软件学院 \\
+\normalsize 学期: 2025，春季\hfill 提交截止时间:  2025年5月23日, 11：59 PM \\
+\noindent\rule{7in}{2.8pt}
+\textbf{提醒注意:}
+\begin{itemize}
+\item 本次作业发布于2025年5月9日，截止于2025年5月23日。
+\item 作业三分为三部分：问答题、实训题、以及实训题报告
+\begin{itemize}
+    \item 问答题答案可以手写并扫描，或者用latex（或word）手打，最终以QA.pdf文件命名。
+    \item 实训题按照项目共享链接内要求和基础代码进行作答。
+    \item 报告部分同样可以手写或者手打，以Report.pdf文件命名。
+    \item 作业提交格式：$<student ID>$\_$<name>$\_A3.zip。比如ZY1921102\_田嘉怡\_A3.zip
+    \item 提交的zip文件要求（仅）包括：
+    \begin{itemize}
+        \item 实训题文件：main.ipynb
+        \item 问答题答案：QA.pdf
+        \item 报告：Report.pdf
+    \end{itemize}
+    
+\end{itemize}
+\item 作业压缩包需要在spoc平台上提交。
+\item 每迟交1天（不满1天按1天计算），本次作业扣除10\%分数。
+\item 不按作业要求和格式提交，视情况扣分。不得抄袭。
+\end{itemize}
+
+\noindent\rule{7in}{1pt}
+\textbf{第一部分：问答题（共5分）}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}{1}
+说明在K-均值聚类算法执行过程中，其目标函数 $\sum_{i=1}^{K} \sum_{x\in G_i}||x-c_i||^2$ 是严格递减的，并解释为什么K-均值聚类算法可以确保在有限步内收敛。
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{2}
+请回答以下关于自编码器相关问题。
+\begin{enumerate}[1)]
+\item 最小化重构误差的思想可以引申到（深度）自编码器。当采用一层线性编码器和一层线性解码器的自编码器结构，并用梯度下降法通过最小化重构误差目标函数对编解码器参数进行优化时，其结果跟PCA得到的结果是否相同？为什么？
+\item 变分自动编码器与传统自动编码器相比具有什么特点？请解释变分自动编码器如何实现潜在空间的连续性和可解释性。
+\end{enumerate}
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}{3}
+给定$N$个独立同分布数据，$X=\{x_1,...,x_N\}$表示观测变量，$Z=\{z_1,...,z_N\}$表示相应的隐藏变量。概率模型假设两个变量的联合分布为$p(X,Z)$，目标是找到后验分布以$p(Z|X)$及边缘分布$p(X)$ 的近似。证明观测数据$X$的对数边缘分布 $\ln p(X)$ 可以分解为：
+$$\ln p(X)=\mathcal{L}(q)+KL(q||p)$$
+两个项，其中
+$$\mathcal{L}(q)=\int q(Z)\ln \{\frac{p(X,Z)}{q(Z)}\}dZ,$$
+$$KL(q||p)=-\int q(Z)\ln \{\frac{p(Z|X)}{q(Z)}\}dZ$$
+\end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}{4}
+请回答以下扩散模型相关问题。
+\begin{enumerate}[1)]
+\item 扩散模型与生成对抗网络相比，其优势是什么，劣势是什么。
+\item 现在出现了许多文生图扩散模型，如Stable Diffusion，它是如何实现文本条件控制的。
+\end{enumerate}
+\end{problem}
+
+\newpage
+\noindent\rule{7in}{1pt}
+\textbf{第二部分：实训题（共7分）}
+\\ \\
+\textbf{实训题要求:}
+\begin{itemize}
+    \item 本次作业包括1个实训题，作业要求以及基础代码以Aistudio项目的形式发布。
+    \item 发布项目链接永久有效，不再有3天之内fork的限制。
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}{1 生成式模型基础}
+
+生成式模型是一类机器学习模型，其主要目的是生成具有与训练数据相似性质的新样本。这些模型通过学习数据的统计规律和潜在结构，能够生成具有类似于训练数据的新数据。
+
+本实验要求使用PaddlePaddle，实现简单的AutoEncoder, VAE和扩散模型，填写相应代码。实验介绍详情和参考基础代码请参见Aistudio中的共享项目\href{https://aistudio.baidu.com/projectdetail/7517368}{“人工智能课程-作业三-生成式模型”}。
+
+\end{problem}
+
+\noindent\rule{7in}{1pt}
+\textbf{第三部分：实训题实验报告（共3分）}
+\begin{itemize}
+    \item 请按照实验报告模板完成实验报告。
+    \item 实验报告模板是通用模板，可根据每个作业要求的差别，自由进行微调。
+\end{itemize}
+
+\end{CJK}
+\end{document}
